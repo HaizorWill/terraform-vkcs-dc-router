@@ -134,10 +134,14 @@ list(object({
     resource_key = optional(string)
     description  = optional(string)
     dc_bgp_id    = string
-    remote_asn   = number
-    remote_ip    = string
+    add_paths    = optional(string)
+    remote_asn               = number
+    remote_ip                = string
+    force_ibgp_next_hop_self = optional(bool)
 }))
 ```
+
+Prefix filter is not implemented on the side of VK Cloud API, it is supposed to take in filter IDs
 
 ## Contribution
 

@@ -94,9 +94,21 @@ variable "bgp_neighbors" {
     resource_key = optional(string)
     description  = optional(string)
     dc_bgp_id    = string
-    remote_asn   = number
-    remote_ip    = string
+    add_paths    = optional(string)
+    #filter_in = string
+    #filter_out = string
+    #Prefix filter is not implemented on the side of VK Cloud API
+    #supposed to take in filter IDs
+    remote_asn               = number
+    remote_ip                = string
+    force_ibgp_next_hop_self = optional(bool)
   }))
   description = "A list of BGP neighbors that are added to the BGP instance configuration"
   default     = null
+  validation {
+    condition = alltrue([
+      for o in var.bgp_neighbors : contains(["off", "on", "tx", "rx"], o.add_paths) || o.add_paths == null
+    ])
+    error_message = format("Add_paths value provided cannot be set! Available values are: %v", join(", ", ["off", "on", "tx", "rx"]))
+  }
 }

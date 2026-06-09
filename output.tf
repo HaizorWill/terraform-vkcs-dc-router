@@ -49,7 +49,8 @@ output "static_routes" {
     metric     = vkcs_dc_static_route.this[key].metric
     created_at = vkcs_dc_static_route.this[key].created_at
     updated_at = vkcs_dc_static_route.this[key].updated_at
-  } }
+    }
+  }
 }
 
 output "bgp_instances" {
@@ -59,5 +60,18 @@ output "bgp_instances" {
     bgp_router_id = vkcs_dc_bgp_instance.this[key].bgp_router_id
     created_at    = vkcs_dc_bgp_instance.this[key].created_at
     updated_at    = vkcs_dc_bgp_instance.this[key].updated_at
-  } }
+    }
+  }
+}
+
+output "bgp_neighbors" {
+  value = { for key, neighbor in vkcs_dc_bgp_neighbor.this : key => {
+    id         = vkcs_dc_bgp_neighbor.this[key].id
+    enabled    = vkcs_dc_bgp_neighbor.this[key].enabled
+    remote_ip  = vkcs_dc_bgp_neighbor.this[key].remote_ip
+    remote_asn = vkcs_dc_bgp_neighbor.this[key].remote_asn
+    created_at = vkcs_dc_bgp_neighbor.this[key].created_at
+    updated_at = vkcs_dc_bgp_neighbor.this[key].updated_at
+    }
+  }
 }
