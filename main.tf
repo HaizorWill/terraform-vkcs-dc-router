@@ -66,11 +66,13 @@ resource "vkcs_dc_bgp_instance" "this" {
 resource "vkcs_dc_bgp_neighbor" "this" {
   for_each = local.bgp_neighbors
 
-  name        = each.value.name
-  description = each.value.description
-  dc_bgp_id   = each.value.dc_bgp_id
-  remote_asn  = each.value.remote_asn
-  remote_ip   = each.value.remote_ip
+  name                     = each.value.name
+  description              = each.value.description
+  dc_bgp_id                = each.value.dc_bgp_id
+  add_paths                = each.value.add_paths
+  remote_asn               = each.value.remote_asn
+  remote_ip                = each.value.remote_ip
+  force_ibgp_next_hop_self = each.value.force_ibgp_next_hop_self
 
   depends_on = [vkcs_dc_bgp_instance.this]
 }

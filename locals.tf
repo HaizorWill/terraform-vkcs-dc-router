@@ -21,4 +21,3 @@ locals {
     coalesce(neighbor.resource_key, neighbor.name, format("bgp-neighbor-%s", id)) => neighbor
   } : {}
 }
-
